@@ -1,3 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  font-family: karla;
+}
+
+@layer components {
+  .btn-number {
+    @apply bg-white flex-1 font-bold min-h-[2.5rem] rounded-lg duration-100 transition-all text-[#2B283A];
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .btn-main {
+    @apply bg-[#5035FF] text-white rounded-lg py-2 w-full font-bold;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      @apply bg-[#351ae4];
+    }
+  }
+}
