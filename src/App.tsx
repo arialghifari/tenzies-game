@@ -21,7 +21,24 @@ function App() {
   }
 
   function holdDice(id: number) {
-    console.log(id);
+    // My way
+    // let newDice: any = [];
+
+    // dice.map((die) => {
+    //   if (die.id === id) {
+    //     die.isHeld = !die.isHeld;
+    //   }
+
+    //   newDice.push(die);
+    // });
+
+    // return setDice(newDice);
+
+    setDice((prevDice: any): any => {
+      return prevDice.map((die: any) => {
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+      });
+    });
   }
 
   const diceElements = dice.map((die, index) => {
