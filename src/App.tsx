@@ -10,7 +10,7 @@ function App() {
     for (let i = 0; i < 10; i++) {
       const randomNumber = Math.ceil(Math.random() * 6);
 
-      newDice.push({ value: randomNumber, isHeld: false });
+      newDice.push({ value: randomNumber, isHeld: false, id: i });
     }
 
     return newDice;
@@ -20,8 +20,19 @@ function App() {
     return setDice(allNewDice);
   }
 
+  function holdDice(id: number) {
+    console.log(id);
+  }
+
   const diceElements = dice.map((die, index) => {
-    return <Die key={index} value={die.value} />;
+    return (
+      <Die
+        key={index}
+        value={die.value}
+        isHeld={die.isHeld}
+        holdDice={() => holdDice(die.id)}
+      />
+    );
   });
 
   return (

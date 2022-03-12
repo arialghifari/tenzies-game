@@ -18,6 +18,14 @@ html {
     }
   }
 
+  .held {
+    @apply bg-[#048D3B] text-white;
+
+    &:active {
+      box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
+
   .btn-main {
     @apply bg-[#5035FF] text-white rounded-lg py-2 w-full font-bold;
 
