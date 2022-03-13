@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Die from "./components/Die";
 import { nanoid } from "nanoid";
 
 function App() {
   const [dice, setDice] = useState(allNewDice());
+  const [tenzies, setTenzies] = useState(false);
 
   function generateNewDie() {
     const randomNumber = Math.ceil(Math.random() * 6);
@@ -46,6 +47,10 @@ function App() {
       />
     );
   });
+
+  useEffect(() => {
+    console.log("Dice state changed");
+  }, [dice]);
 
   return (
     <main className="w-fit mx-auto mt-10 max-w-[22.5rem]">
