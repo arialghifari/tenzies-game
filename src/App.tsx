@@ -6,6 +6,29 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
 
+  useEffect((): any => {
+    let diceValue: any = [];
+    let isWinning = false;
+
+    dice.map((die) => {
+      return die.isHeld ? diceValue.push(die.value) : null;
+    });
+
+    if (diceValue.length === 10)
+      for (let i = 0; i < 9; i++) {
+        if (diceValue[i] === diceValue[i + 1]) {
+          isWinning = true;
+        } else {
+          return (isWinning = false);
+        }
+      }
+    else {
+      null;
+    }
+
+    console.log(isWinning ? "YOU WIN" : null);
+  }, [dice]);
+
   function generateNewDie() {
     const randomNumber = Math.ceil(Math.random() * 6);
     return { value: randomNumber, isHeld: false, id: nanoid(5) };
@@ -47,10 +70,6 @@ function App() {
       />
     );
   });
-
-  useEffect(() => {
-    console.log("Dice state changed");
-  }, [dice]);
 
   return (
     <main className="w-fit mx-auto mt-10 max-w-[22.5rem]">
