@@ -16,7 +16,6 @@ function App() {
 
     if (allIsHeld && allIsSame) {
       setTenzies(true);
-      console.log("You won!");
     } else {
       setTenzies(false);
     }
@@ -54,7 +53,7 @@ function App() {
   }
 
   function resetDice() {
-    return setDice(allNewDice);
+    return setDice(allNewDice());
   }
 
   const diceElements = dice.map((die, index) => {
