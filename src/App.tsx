@@ -7,6 +7,7 @@ import Confetti from "react-confetti";
 function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
+  const [rollCount, setRollCount] = useState(0);
   const { width, height } = useWindowSize();
 
   useEffect(() => {
@@ -37,11 +38,17 @@ function App() {
   }
 
   function rollDice() {
-    setDice((prevDice) => {
-      return prevDice.map((die) => {
-        return die.isHeld ? die : generateNewDie();
+    const allIsHeld = dice.every((die) => die.isHeld);
+
+    if (!allIsHeld) {
+      setDice((prevDice) => {
+        return prevDice.map((die) => {
+          return die.isHeld ? die : generateNewDie();
+        });
       });
-    });
+
+      setRollCount((prevRollCount) => prevRollCount + 1);
+    }
   }
 
   function holdDice(id: string) {
@@ -53,7 +60,8 @@ function App() {
   }
 
   function resetDice() {
-    return setDice(allNewDice());
+    setDice(allNewDice());
+    setRollCount(0);
   }
 
   const diceElements = dice.map((die, index) => {
@@ -97,6 +105,7 @@ function App() {
               ROLL
             </button>
           )}
+          <p className="text-left">Roll count: {rollCount}</p>
         </div>
       </div>
     </main>
