@@ -9,7 +9,7 @@ function App() {
   const [tenzies, setTenzies] = useState(false);
   const { width, height } = useWindowSize();
 
-  useEffect((): any => {
+  useEffect(() => {
     const allIsHeld = dice.every((die) => die.isHeld);
     const firstValue = dice[0].value;
     const allIsSame = dice.every((die) => die.value === firstValue);
@@ -37,16 +37,16 @@ function App() {
   }
 
   function rollDice() {
-    setDice((oldDice: any) => {
-      return oldDice.map((die: any) => {
+    setDice((prevDice) => {
+      return prevDice.map((die) => {
         return die.isHeld ? die : generateNewDie();
       });
     });
   }
 
   function holdDice(id: string) {
-    setDice((prevDice: any): any => {
-      return prevDice.map((die: any) => {
+    setDice((prevDice) => {
+      return prevDice.map((die) => {
         return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
       });
     });

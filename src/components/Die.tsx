@@ -1,8 +1,8 @@
-interface Props {
+type Props = {
   value: number;
   isHeld: boolean;
-  holdDice: any;
-}
+  holdDice: () => void;
+};
 
 function Die(props: Props) {
   return (
