@@ -50,6 +50,10 @@ function App() {
     });
   }
 
+  function resetDice() {
+    return setDice(allNewDice);
+  }
+
   const diceElements = dice.map((die, index) => {
     return (
       <Die
@@ -78,9 +82,15 @@ function App() {
               {diceElements}
             </div>
           </div>
-          <button className="btn-main" onClick={rollDice}>
-            ROLL
-          </button>
+          {tenzies ? (
+            <button className="btn-main btn-reset" onClick={resetDice}>
+              RESET GAME
+            </button>
+          ) : (
+            <button className="btn-main" onClick={rollDice}>
+              ROLL
+            </button>
+          )}
         </div>
       </div>
     </main>

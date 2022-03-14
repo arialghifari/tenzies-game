@@ -37,4 +37,12 @@ html {
       box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
   }
+
+  .btn-reset {
+    @apply bg-[#636363];
+
+    &:hover {
+      @apply bg-[#535353];
+    }
+  }
 }
