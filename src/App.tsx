@@ -7,26 +7,16 @@ function App() {
   const [tenzies, setTenzies] = useState(false);
 
   useEffect((): any => {
-    let diceValue: any = [];
-    let isWinning = false;
+    const allIsHeld = dice.every((die) => die.isHeld);
+    const firstValue = dice[0].value;
+    const allIsSame = dice.every((die) => die.value === firstValue);
 
-    dice.map((die) => {
-      return die.isHeld ? diceValue.push(die.value) : null;
-    });
-
-    if (diceValue.length === 10)
-      for (let i = 0; i < 9; i++) {
-        if (diceValue[i] === diceValue[i + 1]) {
-          isWinning = true;
-        } else {
-          return (isWinning = false);
-        }
-      }
-    else {
-      null;
+    if (allIsHeld && allIsSame) {
+      setTenzies(true);
+      console.log("You won!");
+    } else {
+      setTenzies(false);
     }
-
-    console.log(isWinning ? "YOU WIN" : null);
   }, [dice]);
 
   function generateNewDie() {
