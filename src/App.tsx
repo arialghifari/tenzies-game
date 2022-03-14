@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import Die from "./components/Die";
 import { nanoid } from "nanoid";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
 function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
+  const { width, height } = useWindowSize();
 
   useEffect((): any => {
     const allIsHeld = dice.every((die) => die.isHeld);
@@ -83,9 +86,13 @@ function App() {
             </div>
           </div>
           {tenzies ? (
-            <button className="btn-main btn-reset" onClick={resetDice}>
-              RESET GAME
-            </button>
+            <>
+              <Confetti width={width} height={height} />
+              <p>CONGRATULATIONS, YOU WON!</p>
+              <button className="btn-main btn-reset" onClick={resetDice}>
+                NEW GAME
+              </button>
+            </>
           ) : (
             <button className="btn-main" onClick={rollDice}>
               ROLL
