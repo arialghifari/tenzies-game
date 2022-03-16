@@ -9,7 +9,9 @@ function App() {
   const [tenzies, setTenzies] = useState(false);
   const [rollCount, setRollCount] = useState(0);
   const { width, height } = useWindowSize();
+  const [time, setTime] = useState(0);
 
+  // On dice change
   useEffect(() => {
     const allIsHeld = dice.every((die) => die.isHeld);
     const firstValue = dice[0].value;
@@ -21,6 +23,19 @@ function App() {
       setTenzies(false);
     }
   }, [dice]);
+
+  // Timer
+  useEffect(() => {
+    const fun = setInterval(() => {
+      if (tenzies) {
+        // if win
+      } else {
+        setTime((prevTime) => prevTime + 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(fun);
+  }, [tenzies]);
 
   function generateNewDie() {
     const randomNumber = Math.ceil(Math.random() * 6);
@@ -62,6 +77,7 @@ function App() {
   function resetDice() {
     setDice(allNewDice());
     setRollCount(0);
+    setTenzies(false);
   }
 
   const diceElements = dice.map((die, index) => {
@@ -105,7 +121,10 @@ function App() {
               ROLL
             </button>
           )}
-          <p className="text-left">Roll count: {rollCount}</p>
+          <div className="flex justify-between">
+            <p className="text-left">Roll count: {rollCount}</p>
+            <p className="text-left">Time: {time} seconds</p>
+          </div>
         </div>
       </div>
     </main>
