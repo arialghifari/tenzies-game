@@ -26,13 +26,15 @@ function App() {
 
   // Timer
   useEffect(() => {
-    const fun = setInterval(() => {
-      if (tenzies) {
-        // if win
-      } else {
+    if (tenzies) {
+      // if win
+      // make new best minimum roll
+      // make new best time
+    } else {
+      var fun = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
-      }
-    }, 1000);
+      }, 1000);
+    }
 
     return () => clearInterval(fun);
   }, [tenzies]);
