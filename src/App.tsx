@@ -76,8 +76,9 @@ function App() {
 
   function resetDice() {
     setDice(allNewDice());
-    setRollCount(0);
     setTenzies(false);
+    setRollCount(0);
+    setTime(0);
   }
 
   const diceElements = dice.map((die, index) => {
