@@ -10,6 +10,8 @@ function App() {
   const [rollCount, setRollCount] = useState(0);
   const { width, height } = useWindowSize();
   const [time, setTime] = useState(0);
+  const [bestRoll, setBestRoll] = useState(0);
+  const [bestTime, setBestTime] = useState(0);
 
   // On dice change
   useEffect(() => {
@@ -24,12 +26,13 @@ function App() {
     }
   }, [dice]);
 
-  // Timer
+  // Timer & On winning state
   useEffect(() => {
     if (tenzies) {
-      // if win
-      // make new best minimum roll
-      // make new best time
+      setBestRoll(
+        bestRoll === 0 ? rollCount : bestRoll > rollCount ? rollCount : bestRoll
+      );
+      setBestTime(bestTime === 0 ? time : bestTime > time ? time : bestTime);
     } else {
       var fun = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
@@ -130,6 +133,8 @@ function App() {
           </div>
         </div>
       </div>
+      <div>Best Roll: {bestRoll} times</div>
+      <div>Best Time: {bestTime} seconds</div>
     </main>
   );
 }
