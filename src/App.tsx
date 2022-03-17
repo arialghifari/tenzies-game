@@ -10,8 +10,12 @@ function App() {
   const [rollCount, setRollCount] = useState(0);
   const { width, height } = useWindowSize();
   const [time, setTime] = useState(0);
-  const [bestRoll, setBestRoll] = useState(0);
-  const [bestTime, setBestTime] = useState(0);
+  const [bestRoll, setBestRoll] = useState(
+    localStorage.getItem("bestRoll") || 0
+  );
+  const [bestTime, setBestTime] = useState(
+    localStorage.getItem("bestTime") || 0
+  );
 
   // On dice change
   useEffect(() => {
@@ -26,7 +30,7 @@ function App() {
     }
   }, [dice]);
 
-  // Timer & On winning state
+  // Timer, set bestRoll, and set bestTime
   useEffect(() => {
     if (tenzies) {
       setBestRoll(
@@ -41,6 +45,12 @@ function App() {
 
     return () => clearInterval(fun);
   }, [tenzies]);
+
+  // Set local storage
+  useEffect(() => {
+    localStorage.setItem("bestRoll", bestRoll.toString());
+    localStorage.setItem("bestTime", bestTime.toString());
+  }, [bestRoll, bestTime]);
 
   function generateNewDie() {
     const randomNumber = Math.ceil(Math.random() * 6);
