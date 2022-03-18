@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Die from "./components/Die";
+import TopScore from "./components/TopScore";
 import { nanoid } from "nanoid";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
@@ -108,7 +109,7 @@ function App() {
   });
 
   return (
-    <main className="w-fit mx-auto mt-10 max-w-[22.5rem]">
+    <main className="w-fit mx-auto my-10 max-w-[22.5rem]">
       <div className="container bg-[#2B283A] p-5">
         <div className="content bg-[#F0F0F0] p-5 text-center rounded-lg">
           <h1 className="font-bold text-[1.75rem] text-[#2B283A]">
@@ -143,8 +144,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div>Best Roll: {bestRoll} times</div>
-      <div>Best Time: {bestTime} seconds</div>
+      <TopScore bestRoll={+bestRoll} bestTime={+bestTime} />
     </main>
   );
 }
