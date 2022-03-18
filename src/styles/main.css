@@ -9,6 +9,11 @@ html {
 }
 
 @layer components {
+  .blur {
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(1px);
+  }
+
   .btn-number {
     @apply bg-white flex-1 font-bold min-h-[2.5rem] rounded-lg text-[#2B283A];
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);

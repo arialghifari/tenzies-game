@@ -6,6 +6,7 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 
 function App() {
+  const [gameStarted, setGameStarted] = useState(false);
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
   const [rollCount, setRollCount] = useState(0);
@@ -33,25 +34,36 @@ function App() {
 
   // Timer, set bestRoll, and set bestTime
   useEffect(() => {
-    if (tenzies) {
-      setBestRoll(
-        bestRoll === 0 ? rollCount : bestRoll > rollCount ? rollCount : bestRoll
-      );
-      setBestTime(bestTime === 0 ? time : bestTime > time ? time : bestTime);
-    } else {
-      var fun = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
-    }
+    if (gameStarted) {
+      if (tenzies) {
+        setBestRoll(
+          bestRoll === 0
+            ? rollCount
+            : bestRoll > rollCount
+            ? rollCount
+            : bestRoll
+        );
+        setBestTime(bestTime === 0 ? time : bestTime > time ? time : bestTime);
+      } else {
+        var fun = setInterval(() => {
+          setTime((prevTime) => prevTime + 1);
+        }, 1000);
+      }
 
-    return () => clearInterval(fun);
-  }, [tenzies]);
+      return () => clearInterval(fun);
+    }
+  }, [tenzies, gameStarted]);
 
   // Set local storage
   useEffect(() => {
     localStorage.setItem("bestRoll", bestRoll.toString());
     localStorage.setItem("bestTime", bestTime.toString());
   }, [bestRoll, bestTime]);
+
+  function startGame() {
+    setGameStarted(true);
+    setDice(allNewDice());
+  }
 
   function generateNewDie() {
     const randomNumber = Math.ceil(Math.random() * 6);
@@ -121,26 +133,35 @@ function App() {
           </p>
 
           <div className="dice-container my-6 flex flex-col gap-4 text-xl sm:my-8">
-            <div className="grid gap-3 grid-cols-2 sm:gap-4 sm:grid-cols-5">
+            <div className="grid gap-3 grid-cols-2 sm:gap-4 sm:grid-cols-5 relative">
               {diceElements}
+              {gameStarted ? "" : (
+                <div className="blur absolute w-full h-full"></div>
+              )}
             </div>
           </div>
-          {tenzies ? (
-            <>
-              <Confetti width={width} height={height} />
-              <p>CONGRATULATIONS, YOU WON!</p>
-              <button className="btn-main btn-reset" onClick={resetDice}>
-                NEW GAME
+          {gameStarted ? (
+            tenzies ? (
+              <>
+                <Confetti width={width} height={height} />
+                <p>CONGRATULATIONS, YOU WON!</p>
+                <button className="btn-main btn-reset" onClick={resetDice}>
+                  START NEW GAME
+                </button>
+              </>
+            ) : (
+              <button className="btn-main" onClick={rollDice}>
+                ROLL
               </button>
-            </>
+            )
           ) : (
-            <button className="btn-main" onClick={rollDice}>
-              ROLL
+            <button className="btn-main" onClick={startGame}>
+              START
             </button>
           )}
           <div className="flex justify-between">
             <p className="text-left">Roll count: {rollCount}</p>
-            <p className="text-left">Time: {time} seconds</p>
+            <p className="text-right">Time: {time} seconds</p>
           </div>
         </div>
       </div>
